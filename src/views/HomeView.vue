@@ -1,6 +1,6 @@
 <script>
 import TheWelcome from '@/components/TheWelcome.vue'
-import {getResourcesApi,updateResourcesApi} from '@/resource'
+import {getResourcesApi,updateResourcesApi,addResourcesApi} from '@/resource'
 
 export default {
   components:{TheWelcome},
@@ -25,7 +25,21 @@ export default {
     updateData(){
       updateResourcesApi(this.inputKey,{value:this.inputValue}).then((res)=>{
           console.log(res)
-        })
+      })
+    },
+    addData(){
+      let jsonData=this.isJsonString(this.inputValue)?JSON.parse(this.inputValue):this.inputValue;
+      addResourcesApi(this.inputKey,{value:jsonData}).then((res)=>{
+          console.log(res)
+      })
+    },
+    isJsonString(str) {
+      try {
+        JSON.parse(str);
+        return true;
+      } catch (error) {
+        return false;
+      }
     }
   }
 }
@@ -35,6 +49,7 @@ export default {
   <main>
     <el-input placeholder="Please input key" v-model="inputKey"></el-input>
     <el-input placeholder="Please input value" v-model="inputValue"></el-input>
-   <el-button @click="updateData" type="success">Success</el-button>
+    <el-button @click="updateData" type="success">put</el-button>
+    <el-button @click="addData" type="success">post</el-button>
   </main>
 </template>

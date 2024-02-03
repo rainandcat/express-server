@@ -1,7 +1,8 @@
 // const User = require('../models/User');
 const fs = require('fs');
 const config = require('../config');
-const {readFileAsync,writeFileAsync,getAllKeysAndValues,parsePath,updateJsonValue} = require('../utils/dataProcessing');
+const {getAllKeysAndValues,parsePath,updateJsonValue} = require('../utils/dataProcessing');
+const {readFileAsync,writeFileAsync} = require('../utils/fileAsync');
 
 const dataPath = config.jsonPath;
 const port = config.port;
@@ -47,6 +48,21 @@ exports.updateData = (req, res) => {
   });
 };
 
-// exports.createUser = (req, res) => {
-//   res.send('Create a new user');
-// };
+exports.addData = (req, res) => {
+  const resourceKay = req.params.key;
+  const resourceValue =req.body
+  readFileAsync(dataPath).then(data => {
+    const jsonData=JSON.parse(data)
+    updateJsonValue(jsonData, parsePath(resourceKay), resourceValue.value);
+    writeFileAsync(dataPath, JSON.stringify(jsonData, null, 2))
+    .catch(error => {
+      console.error(error.message);
+      return res.status(500).json({ error: `Unable to write to file` });
+    });
+    res.send('File has been successfully written.');
+  })
+  .catch(err => {
+    console.error('Error Read:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  });
+};

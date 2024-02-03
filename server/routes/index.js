@@ -5,7 +5,6 @@ const jsonController = require('../controllers/jsonController');
 router.get('/', jsonController.getDefault);
 router.get('/resources', jsonController.getAllList);
 router.put('/resources/:key', jsonController.updateData);
-// router.get('/user', jsonController.getUser);
-// router.post('/user', jsonController.createUser);
+router.post('/resources/:key', jsonController.addData);
   
 module.exports = router;
