@@ -1,7 +1,7 @@
 // const User = require('../models/User');
 const fs = require('fs');
 const config = require('../config');
-const {readFileAsync,writeFileAsync,getAllKeysAndValues} = require('../utils/dataProcessing');
+const {readFileAsync,writeFileAsync,getAllKeysAndValues,parsePath,updateJsonValue} = require('../utils/dataProcessing');
 
 const dataPath = config.jsonPath;
 const port = config.port;
@@ -22,19 +22,24 @@ exports.getAllList = (req, res) => {
 };
 
 exports.updateData = (req, res) => {
-  const parameter = req.params.parameter;
+  const resourceKay = req.params.key;
+  const resourceValue =req.body
   readFileAsync(dataPath).then(data => {
-    const jsonData =JSON.parse(data)
-    const updateData={}
-    console.log(parameter)
-    console.log(res)
-    updateData[parameter]=res.value
-    writeFileAsync(dataPath, updateData)
-  .catch(error => {
-    console.error(error.message);
-  });
-    // let dataList=getAllKeysAndValues(JSON.parse(data))
-    // res.send(dataList);
+    const jsonData=JSON.parse(data)
+    const jsonKeyValuesData =getAllKeysAndValues(jsonData)
+    const hasMatchingValue =jsonKeyValuesData.some(obj => obj.key === resourceKay);
+
+    if (!hasMatchingValue)
+      return res.status(500).json({ error: `Key ${resourceKay} found in the JSON.` });
+
+    updateJsonValue(jsonData, parsePath(resourceKay), resourceValue.value);
+
+    writeFileAsync(dataPath, JSON.stringify(jsonData, null, 2))
+    .catch(error => {
+      console.error(error.message);
+      return res.status(500).json({ error: `Unable to write to file` });
+    });
+    res.send('File has been successfully written.');
   })
   .catch(err => {
     console.error('Error Read:', err);

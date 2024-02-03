@@ -48,6 +48,39 @@ function getAllKeysAndValues(jsonObj, parentKey = '') {
     }
   
     return keyValues;
+}
+
+function parsePath(path) {
+  const regex = /(\w+)|\[(\d+)\]/g;
+  const matches = [];
+
+  let match;
+  while ((match = regex.exec(path)) !== null) {
+    matches.push(match[1] || match[2]);
   }
 
-module.exports= {readFileAsync,writeFileAsync,getAllKeysAndValues };
+  return matches;
+}
+
+function updateJsonValue(jsonObj, keys, newValue) {
+  if (keys.length === 1) {
+    const key = keys[0];
+
+    if (Array.isArray(jsonObj[key])) {
+      jsonObj[key].forEach((item, index) => {
+        updateJsonValue(item, [], newValue); 
+      });
+    } else if (jsonObj[key] && typeof jsonObj[key] === 'object') {
+      jsonObj[key] = newValue;
+    } else {
+      jsonObj[key] = newValue;
+    }
+  } else {
+    const currentKey = keys.shift();
+    if (jsonObj[currentKey] && typeof jsonObj[currentKey] === 'object') {
+      updateJsonValue(jsonObj[currentKey], keys, newValue);
+    }
+  }
+}
+
+module.exports= {readFileAsync,writeFileAsync,getAllKeysAndValues,parsePath,updateJsonValue };
