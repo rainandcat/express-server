@@ -1,6 +1,6 @@
 <script>
 import TheWelcome from '@/components/TheWelcome.vue'
-import {getResourcesApi,updateResourcesApi,addResourcesApi} from '@/resource'
+import {getResourcesApi,updateResourcesApi,addResourcesApi,deleteResourcesApi} from '@/resource'
 
 export default {
   components:{TheWelcome},
@@ -33,6 +33,11 @@ export default {
           console.log(res)
       })
     },
+    deleteData(){
+      deleteResourcesApi(this.inputKey).then((res)=>{
+          console.log(res)
+      })
+    },
     isJsonString(str) {
       try {
         JSON.parse(str);
@@ -51,5 +56,6 @@ export default {
     <el-input placeholder="Please input value" v-model="inputValue"></el-input>
     <el-button @click="updateData" type="success">put</el-button>
     <el-button @click="addData" type="success">post</el-button>
+    <el-button @click="deleteData" type="success">delete</el-button>
   </main>
 </template>

@@ -1,3 +1,4 @@
+const _ = require('lodash');
 
 function getAllKeysAndValues(jsonObj, parentKey = '') {
     let keyValues = [];
@@ -63,4 +64,8 @@ function updateJsonValue(jsonObj, keys, newValue) {
   }
 }
 
-module.exports= {getAllKeysAndValues,parsePath,updateJsonValue };
+function deleteKeyByPath(obj, keyPath) {
+  _.unset(obj, keyPath);
+  console.log(`Key path '${keyPath}' deleted successfully.`);
+}
+module.exports= {getAllKeysAndValues,parsePath,updateJsonValue,deleteKeyByPath };

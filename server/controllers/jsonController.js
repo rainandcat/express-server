@@ -1,7 +1,5 @@
-// const User = require('../models/User');
-const fs = require('fs');
 const config = require('../config');
-const {getAllKeysAndValues,parsePath,updateJsonValue} = require('../utils/dataProcessing');
+const {getAllKeysAndValues,parsePath,updateJsonValue,deleteKeyByPath} = require('../utils/dataProcessing');
 const {readFileAsync,writeFileAsync} = require('../utils/fileAsync');
 
 const dataPath = config.jsonPath;
@@ -66,3 +64,23 @@ exports.addData = (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   });
 };
+
+exports.deleteData = (req, res) => {
+  const resourceKay = req.params.key;
+  readFileAsync(dataPath).then(data => {
+    const jsonData=JSON.parse(data)
+    deleteKeyByPath(jsonData,resourceKay)
+
+    writeFileAsync(dataPath, JSON.stringify(jsonData, null, 2))
+    .catch(error => {
+      console.error(error.message);
+      return res.status(500).json({ error: `Unable to delete to file` });
+    });
+    res.send('File key has been successfully delete.');
+  })
+  .catch(err => {
+    console.error('Error Read:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  });
+};
+
