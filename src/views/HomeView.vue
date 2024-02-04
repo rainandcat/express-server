@@ -7,7 +7,8 @@ export default {
     data() {
     return {
       inputKey: '',
-      inputValue:''
+      inputValue:'',
+      tableData:[]
     }
   },
   mounted(){
@@ -16,8 +17,7 @@ export default {
   methods:{
     getResources(){
       getResourcesApi().then(res => {
-        console.log(res.data)
-        console.log(typeof res.data)
+        this.tableData=res.data
       }).catch(error => {
         console.error(error);
       });
@@ -50,12 +50,53 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.table-container{
+  padding: 50px;
+  text-align: center;
+}
+.el-table{
+  width: 100%;
+  ::v-deep thead{
+    tr{
+      th{
+        background-color: #778DA9;
+        color: #fff;
+      }
+    }
+  }
+  ::v-deep .el-table__fixed-right-patch{
+    background-color: #778DA9;
+  }
+}
+
+</style>
+
 <template>
-  <main>
-    <el-input placeholder="Please input key" v-model="inputKey"></el-input>
-    <el-input placeholder="Please input value" v-model="inputValue"></el-input>
-    <el-button @click="updateData" type="success">put</el-button>
-    <el-button @click="addData" type="success">post</el-button>
-    <el-button @click="deleteData" type="success">delete</el-button>
+  <main class="table-container">
+    <el-table
+      :data="tableData"
+      height="750"
+      >
+      <el-table-column
+        prop="key"
+        label="Key"
+        >
+      </el-table-column>
+      <el-table-column
+        prop="value"
+        label="Value"
+        >
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="Operations"
+        width="120">
+        <template slot-scope="scope">
+          <el-button @click="handleClick" type="text" size="small">Edit</el-button>
+          <el-button type="text" size="small">Delete</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </main>
 </template>
