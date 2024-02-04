@@ -57,6 +57,9 @@ export default {
       } catch (error) {
         return false;
       }
+    },
+    goToEdit(row){
+      this.$router.push({ name: 'edit', query: { keyValue: row }})
     }
   }
 }
@@ -128,8 +131,8 @@ export default {
         label="Operations"
         width="120">
         <template slot-scope="scope">
-          <!-- <el-button @click="handleClick" type="text" size="small">Edit</el-button>
-          <el-button type="text" size="small">Delete</el-button> -->
+          <el-button @click="goToEdit(scope.row)" type="text" size="small">Edit</el-button>
+          <el-button type="text" size="small">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>

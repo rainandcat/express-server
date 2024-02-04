@@ -14,6 +14,11 @@ const router = new VueRouter({
       component: HomeView
     },
     {
+      path: '/edit',
+      name: 'edit',
+      component: () => import('../views/EditView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
