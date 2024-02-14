@@ -84,3 +84,12 @@ exports.deleteData = (req, res) => {
   });
 };
 
+exports.downloadExampleFile = (req, res) => {
+  const filePath = 'server/file/example.xlsx'; 
+  res.download(filePath, function(err){
+    if (err) {
+      res.status(404).send('File not found');
+    }
+  });
+};
+

@@ -1,6 +1,6 @@
 <script>
 import TheWelcome from '@/components/TheWelcome.vue'
-import {getResourcesApi,updateResourcesApi,addResourcesApi,deleteResourcesApi} from '@/resource'
+import {getResourcesApi,updateResourcesApi,addResourcesApi,deleteResourcesApi,downloadExampleApi} from '@/resource'
 
 export default {
   components:{TheWelcome},
@@ -50,6 +50,16 @@ export default {
           console.log(res)
       })
     },
+    downloadExampleFile(){
+      downloadExampleApi().then((res)=>{
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'example.xlsx');
+        document.body.appendChild(link);
+        link.click();
+      })
+    },
     isJsonString(str) {
       try {
         JSON.parse(str);
@@ -72,9 +82,7 @@ export default {
   margin-bottom: 0.5rem;
   .input-value{
     width: 20%;
-    &:first-child{
-      margin-right: 1rem;
-    }
+    margin-right: 1rem;
   }
 }
 .table-container{
@@ -111,6 +119,7 @@ export default {
         v-model="searchValue"
         size="mini"
         placeholder="Please enter value"/>
+      <el-button @click="downloadExampleFile" type="primary" size="small">Download</el-button>
     </div>
     <el-table
       :data="filterData"
