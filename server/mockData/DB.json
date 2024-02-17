@@ -1,40 +1,31 @@
 {
-  "posts": [
-    {
-      "id": "1",
-      "title": "a title",
-      "views": 100
-    },
-    {
-      "id": "2",
-      "title": "another title",
-      "views": 200
-    }
-  ],
-  "comments": [
-    {
-      "id": "01",
-      "text": "a comment about post 1",
-      "postId": "1"
-    },
-    {
-      "id": "02",
-      "text": "another comment about post 1",
-      "postId": "1"
-    }
-  ],
-  "profile": {
-    "name": "typicode",
-    "content": {
-      "first": 123,
-      "second": 567
-    }
+  "menu": {
+    "page": [
+      "Home",
+      "About Us",
+      "Products",
+      "Contact Us"
+    ]
   },
-  "test": {
-    "testA": {
-      "testB": {
-        "testC": "AA"
+  "products": {
+    "product_list": [
+      {
+        "name": "Product A",
+        "description": "This is product A."
+      },
+      {
+        "name": "Product B",
+        "description": "This is product B."
+      },
+      {
+        "name": "Product C",
+        "description": "This is product C."
       }
-    }
+    ]
+  },
+  "messages": {
+    "welcome": "Welcome to our website!",
+    "error": "An error occurred. Please try again later.",
+    "success": "Your request was successful!"
   }
 }

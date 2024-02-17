@@ -3,7 +3,7 @@
     <el-header class="bg-primary leading-11">
       <ul>
         <li class="list-none">
-          <router-link to="/">Create Data</router-link>
+          <router-link to="/create">Create Data</router-link>
         </li>
       </ul>
     </el-header>

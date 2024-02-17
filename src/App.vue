@@ -12,7 +12,7 @@ import Layout from './components/Layout.vue'
         >
           <el-menu-item index="2">
             <i class="el-icon-menu"></i>
-            <span>Navigator One</span>
+            <span>Home</span>
           </el-menu-item>
         </el-menu>
       </el-aside>

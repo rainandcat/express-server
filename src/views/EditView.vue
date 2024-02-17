@@ -7,6 +7,7 @@ export default {
       key: '',
       value:'',
       tableData:[],
+      dialogVisible:false
     }
   },
   mounted(){
@@ -17,8 +18,11 @@ export default {
   methods:{
     updateData(){
       updateResourcesApi(this.key,{value:this.value}).then((res)=>{
-          console.log(res)
+          this.dialogVisible=true
       })
+    },
+    goToHome(){
+      this.$router.push({ name: 'home'})
     }
   }
 }
@@ -26,19 +30,28 @@ export default {
 
 <template>
     <main class="edit-container p-10 text-right">
-        <div class="input-container flex flex-col">
-            <el-input
-                class="input-value"
-                v-model="key"
-                size="mini"
-                disabled/>
-            <el-input
-                class="input-value"
-                v-model="value"
-                size="mini"
-                />
-        </div>
-        <el-button type="primary" @click="updateData">Sumit</el-button>
+      <div class="input-container flex flex-col">
+        <el-input
+            class="input-value"
+            v-model="key"
+            size="mini"
+            disabled/>
+        <el-input
+            class="input-value"
+            v-model="value"
+            size="mini"/>
+      </div>
+      <el-button type="primary" @click="updateData">Sumit</el-button>
+      <el-dialog
+        class="text-center"
+        :visible.sync="dialogVisible"
+        width="30%"
+      >
+        <span>Sucess</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="goToHome()">Confirm</el-button>
+        </span>
+      </el-dialog>
     </main>
 </template>
 

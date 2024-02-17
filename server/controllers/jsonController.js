@@ -47,11 +47,11 @@ exports.updateData = (req, res) => {
 };
 
 exports.addData = (req, res) => {
-  const resourceKay = req.params.key;
-  const resourceValue =req.body
+  const resourceKay = req.body.key;
+  const resourceValue =req.body.value
   readFileAsync(dataPath).then(data => {
     const jsonData=JSON.parse(data)
-    updateJsonValue(jsonData, parsePath(resourceKay), resourceValue.value);
+    updateJsonValue(jsonData, parsePath(resourceKay), resourceValue);
     writeFileAsync(dataPath, JSON.stringify(jsonData, null, 2))
     .catch(error => {
       console.error(error.message);

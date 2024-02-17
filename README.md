@@ -1,25 +1,25 @@
 # express-server
 
-This template should help get you started developing with Vue 3 in Vite.
+Optimizing tools for managing and swiftly creating JSON configurations.
 
-## Recommended IDE Setup
+# Vite + Express.js + Tailwind CSS
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-### Express.js
-
+# Recommend Node.js Version
 ```sh
-npm run server
+18.12.0
 ```
+or above
 
 ## Project Setup
 
 ```sh
 npm install
+```
+
+### Express.js
+
+```sh
+npm run server
 ```
 
 ### Compile and Hot-Reload for Development

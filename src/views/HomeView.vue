@@ -1,5 +1,5 @@
 <script>
-import {getResourcesApi,updateResourcesApi,addResourcesApi,deleteResourcesApi,downloadExampleApi} from '@/resource'
+import {getResourcesApi,deleteResourcesApi} from '@/resource'
 
 export default {
     data() {
@@ -7,6 +7,8 @@ export default {
       searchKey: '',
       searchValue:'',
       tableData:[],
+      dialogVisible:false,
+      deleteKey:null
     }
   },
   mounted(){
@@ -32,30 +34,14 @@ export default {
         console.error(error);
       });
     },
-    updateData(){
-      updateResourcesApi(this.inputKey,{value:this.inputValue}).then((res)=>{
-          console.log(res)
-      })
-    },
-    addData(){
-      let jsonData=this.isJsonString(this.inputValue)?JSON.parse(this.inputValue):this.inputValue;
-      addResourcesApi(this.inputKey,{value:jsonData}).then((res)=>{
-          console.log(res)
-      })
+    showDeleteDialog(index){
+      this.dialogVisible = true
+      this.deleteIndex=index
     },
     deleteData(){
-      deleteResourcesApi(this.inputKey).then((res)=>{
-          console.log(res)
-      })
-    },
-    downloadExampleFile(){
-      downloadExampleApi().then((res)=>{
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'example.xlsx');
-        document.body.appendChild(link);
-        link.click();
+      deleteResourcesApi(this.filterData[this.deleteIndex].key).then((res)=>{
+          this.filterData.splice(this.deleteIndex, 1);
+          this.dialogVisible = false
       })
     },
     isJsonString(str) {
@@ -86,7 +72,6 @@ export default {
         v-model="searchValue"
         size="mini"
         placeholder="Please enter value"/>
-      <el-button @click="downloadExampleFile" type="primary" size="small">Download</el-button>
     </div>
     <el-table
       :data="filterData"
@@ -108,10 +93,20 @@ export default {
         width="120">
         <template slot-scope="scope">
           <el-button @click="goToEdit(scope.row)" type="text" size="small">Edit</el-button>
-          <el-button type="text" size="small">Delete</el-button>
+          <el-button  @click="showDeleteDialog(scope.$index)" type="text" size="small">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
+      <span>Confirm whether to delete the data?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="deleteData()">Confirm</el-button>
+      </span>
+    </el-dialog>
   </main>
 </template>
 

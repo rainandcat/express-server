@@ -18,6 +18,11 @@ const router = new VueRouter({
       name: 'edit',
       component: () => import('../views/EditView.vue')
     },
+    {
+      path: '/create',
+      name: 'create',
+      component: () => import('../views/CreateView.vue')
+    },
   ]
 })
 
