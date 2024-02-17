@@ -1,8 +1,8 @@
 <template>
-  <div class="layout-container">
-    <el-header>
+  <div class="w-full">
+    <el-header class="bg-primary leading-11">
       <ul>
-        <li>
+        <li class="list-none">
           <router-link to="/">Create Data</router-link>
         </li>
       </ul>
@@ -14,19 +14,9 @@
 </template>
 
 <style lang="scss" scoped>
-  .layout-container{
-    width: 100%;
-  }
   .el-header {
-    background-color: #415A77;
-    line-height: 60px;
-    a{
-      color: #fff;
-    }
-  }
-  ul{
-    li{
-      list-style:none
+    a {
+      @apply text-white
     }
   }
 </style>

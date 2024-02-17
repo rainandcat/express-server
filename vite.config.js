@@ -3,6 +3,8 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import legacy from '@vitejs/plugin-legacy'
 import vue2 from '@vitejs/plugin-vue2'
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +15,14 @@ export default defineConfig({
       additionalLegacyPolyfills: ['regenerator-runtime/runtime']
     })
   ],
+  css: {
+    postcss: {
+      plugins: [
+        tailwindcss,
+        autoprefixer
+      ]
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

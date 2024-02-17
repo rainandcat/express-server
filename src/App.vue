@@ -4,10 +4,10 @@ import Layout from './components/Layout.vue'
 
 <template>
   <div id="app">
-    <el-container class="container">
-      <el-aside width="200px">
+    <el-container class="container bg-backgroundColor h-screen max-w-none overflow-auto">
+      <el-aside class="bg-secondary" width="200px">
         <el-menu
-          class="el-menu-vertical-demo"
+          class="text-white"
           text-color="#fff"
         >
           <el-menu-item index="2">
@@ -22,21 +22,11 @@ import Layout from './components/Layout.vue'
 </template>
 
 <style lang="scss" scoped>
-  .el-aside{
-    background-color: #1B263B;
-  }
-  .container{
-    height: 100vh;
-  }
-  .el-container{
-    background-color: #E0E1DD;
-  }
   .el-menu{
-    background-color: #0D1B2A;
-    color: #fff;
+    @apply bg-menuColor border-menuColor;
     .el-menu-item{
       &:focus,&:hover,&.is-active{
-        background-color: #0D1B2A;
+        @apply bg-menuColor;
       }
     }
   }

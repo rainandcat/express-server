@@ -1,9 +1,7 @@
 <script>
-import TheWelcome from '@/components/TheWelcome.vue'
 import {updateResourcesApi} from '@/resource'
 
 export default {
-  components:{TheWelcome},
     data() {
     return {
       key: '',
@@ -26,23 +24,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.edit-container{
-  padding: 40px;
-  text-align: right;
-    .input-container{
-        display: flex;
-        flex-direction: column;
-        .input-value{
-            margin-bottom: 0.5rem;
-        }
-    }
-}
-</style>
-
 <template>
-    <main class="edit-container">
-        <div class="input-container">
+    <main class="edit-container p-10 text-right">
+        <div class="input-container flex flex-col">
             <el-input
                 class="input-value"
                 v-model="key"
@@ -57,3 +41,13 @@ export default {
         <el-button type="primary" @click="updateData">Sumit</el-button>
     </main>
 </template>
+
+<style lang="scss" scoped>
+.edit-container{
+    .input-container{
+        .input-value{
+           @apply mb-3;
+        }
+    }
+}
+</style>

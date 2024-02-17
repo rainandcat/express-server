@@ -1,9 +1,7 @@
 <script>
-import TheWelcome from '@/components/TheWelcome.vue'
 import {getResourcesApi,updateResourcesApi,addResourcesApi,deleteResourcesApi,downloadExampleApi} from '@/resource'
 
 export default {
-  components:{TheWelcome},
     data() {
     return {
       searchKey: '',
@@ -75,40 +73,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.search-container{
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0.5rem;
-  .input-value{
-    width: 20%;
-    margin-right: 1rem;
-  }
-}
-.table-container{
-  padding: 40px;
-  text-align: center;
-}
-.el-table{
-  width: 100%;
-  ::v-deep thead{
-    tr{
-      th{
-        background-color: #778DA9;
-        color: #fff;
-      }
-    }
-  }
-  ::v-deep .el-table__fixed-right-patch{
-    background-color: #778DA9;
-  }
-}
-
-</style>
-
 <template>
-  <main class="table-container">
-    <div class="search-container">
+  <main class="table-container px-10">
+    <div class="search-container flex justify-end mb-2">
       <el-input
         class="input-value"
         v-model="searchKey"
@@ -123,7 +90,7 @@ export default {
     </div>
     <el-table
       :data="filterData"
-      height="750"
+      height="720"
       >
       <el-table-column
         prop="key"
@@ -147,3 +114,26 @@ export default {
     </el-table>
   </main>
 </template>
+
+<style lang="scss" scoped>
+.table-container{
+  .search-container{
+    .input-value{
+      @apply w-1/5 mr-4;
+    }
+  }
+}
+.el-table{
+  @apply w-full;
+  ::v-deep thead{
+    tr{
+      th{
+        @apply bg-tableColor text-white;
+      }
+    }
+  }
+  ::v-deep .el-table__fixed-right-patch{
+    @apply bg-tableColor;
+  }
+}
+</style>
